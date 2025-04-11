@@ -1,5 +1,5 @@
 // Source: CRA PWA template
-
+console.log("Attempting to register srvice worker.....")
 const isLocalhost = Boolean(
 
     window.location.hostname === 'localhost' ||
@@ -49,6 +49,8 @@ const isLocalhost = Boolean(
   }
   
   function registerValidSW(swUrl, config) {
+    console.log("Regisreting SW:", swUrl);
+    
   
     navigator.serviceWorker
   
