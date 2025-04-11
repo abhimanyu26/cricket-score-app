@@ -1,6 +1,6 @@
 {
-  "name": "cricket-score-app",
   "homepage": "https://abhimanyu26.github.io/cricket-score-app",
+  "name": "cricket-score-app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
