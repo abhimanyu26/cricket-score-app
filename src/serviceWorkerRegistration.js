@@ -1,16 +1,20 @@
-// Source: CRA PWA template
-console.log("Attempting to register srvice worker.....")
+// src/serviceWorkerRegistration.js
+
+// This optional code is used to register a service worker.
+
+// register() is not called by default.
+
 const isLocalhost = Boolean(
 
     window.location.hostname === 'localhost' ||
   
-      window.location.hostname === '[::1]' ||
+    window.location.hostname === '[::1]' ||
   
-      window.location.hostname.match(
+    window.location.hostname.match(
   
-        /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
+      /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
   
-      )
+    )
   
   );
   
@@ -20,7 +24,11 @@ const isLocalhost = Boolean(
   
       const publicUrl = new URL(process.env.PUBLIC_URL, window.location.href);
   
-      if (publicUrl.origin !== window.location.origin) return;
+      if (publicUrl.origin !== window.location.origin) {
+  
+        return;
+  
+      }
   
       window.addEventListener('load', () => {
   
@@ -28,15 +36,23 @@ const isLocalhost = Boolean(
   
         if (isLocalhost) {
   
+          // This is running on localhost.
+  
           checkValidServiceWorker(swUrl, config);
   
-          navigator.serviceWorker.ready.then(() =>
+          navigator.serviceWorker.ready.then(() => {
   
-            console.log('This app is being served cache-first by a service worker.')
+            console.log(
   
-          );
+              'This web app is being served cache-first by a service worker.'
+  
+            );
+  
+          });
   
         } else {
+  
+          // Not localhost
   
           registerValidSW(swUrl, config);
   
@@ -49,26 +65,22 @@ const isLocalhost = Boolean(
   }
   
   function registerValidSW(swUrl, config) {
-    console.log("Regisreting SW:", swUrl);
-    
   
     navigator.serviceWorker
   
       .register(swUrl)
   
-      .then((registration) => {
-  
-        if (registration.waiting) {
-  
-          if (config && config.onUpdate) config.onUpdate(registration);
-  
-        }
+      .then(registration => {
   
         registration.onupdatefound = () => {
   
           const installingWorker = registration.installing;
   
-          if (installingWorker == null) return;
+          if (installingWorker == null) {
+  
+            return;
+  
+          }
   
           installingWorker.onstatechange = () => {
   
@@ -76,11 +88,23 @@ const isLocalhost = Boolean(
   
               if (navigator.serviceWorker.controller) {
   
-                if (config && config.onUpdate) config.onUpdate(registration);
+                console.log('New content is available and will be used when all tabs are closed.');
+  
+                if (config && config.onUpdate) {
+  
+                  config.onUpdate(registration);
+  
+                }
   
               } else {
   
-                if (config && config.onSuccess) config.onSuccess(registration);
+                console.log('Content is cached for offline use.');
+  
+                if (config && config.onSuccess) {
+  
+                  config.onSuccess(registration);
+  
+                }
   
               }
   
@@ -92,7 +116,7 @@ const isLocalhost = Boolean(
   
       })
   
-      .catch((error) => {
+      .catch(error => {
   
         console.error('Error during service worker registration:', error);
   
@@ -104,11 +128,11 @@ const isLocalhost = Boolean(
   
     fetch(swUrl, {
   
-      headers: { 'Service-Worker': 'script' },
+      headers: { 'Service-Worker': 'script' }
   
     })
   
-      .then((response) => {
+      .then(response => {
   
         const contentType = response.headers.get('content-type');
   
@@ -120,9 +144,13 @@ const isLocalhost = Boolean(
   
         ) {
   
-          navigator.serviceWorker.ready.then((registration) => {
+          navigator.serviceWorker.ready.then(registration => {
   
-            registration.unregister().then(() => window.location.reload());
+            registration.unregister().then(() => {
+  
+              window.location.reload();
+  
+            });
   
           });
   
@@ -136,7 +164,7 @@ const isLocalhost = Boolean(
   
       .catch(() => {
   
-        console.log('No internet connection. App is running in offline mode.');
+        console.log('No internet connection found. App is running in offline mode.');
   
       });
   
@@ -148,9 +176,17 @@ const isLocalhost = Boolean(
   
       navigator.serviceWorker.ready
   
-        .then((registration) => registration.unregister())
+        .then(registration => {
   
-        .catch((error) => console.error(error.message));
+          registration.unregister();
+  
+        })
+  
+        .catch(error => {
+  
+          console.error(error.message);
+  
+        });
   
     }
   
